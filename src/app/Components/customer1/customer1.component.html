@@ -1,0 +1,109 @@
+
+<!-- ********************************************************************* -->
+
+<main class="d-flex align-items-center mt-5 mb-5 min-vh-100 py-3 py-md-0">
+  <div class="container">
+    <div class="card login-card">
+      <div class="row no-gutters">
+        <div class="col-md-5">
+          <img
+            src="https://source.unsplash.com/random"
+            alt="login"
+            class="login-card-img"
+          />
+        </div>
+        <!-- ******************Main Form***************** -->
+        <div class="col-md-7">
+          <div class="card-body">
+            <h1 class="display-4">
+              <b>User Form</b>&nbsp;<i class="bi bi-person-square"></i>
+            </h1>
+            <hr />
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="was-validated">
+
+              <input type="hidden" />
+              <div class="" *ngFor="let c of advancedForm">
+                <!-- Switch -->
+                <div [ngSwitch]="c.type">
+                  <!-- SwitchCase for group -->
+                  <div class="form-group" *ngSwitchCase="'group'" [formGroupName]="c.key" >
+                    
+                    <div *ngFor="let child of c.options.children">
+                      <!-- {{child | json}} -->
+                      <label class="form-label"><b>{{ child.options.label }}</b></label>
+                      <input
+                        class="form-control is-invalid"
+                        [formControlName]="child.key"
+                        [placeholder]="child.options.placeholder"
+                        [pattern]="child.options.pattern"
+                      />
+                    </div>
+                  </div>
+                  <!-- SwitchCase for array-->
+                  <div *ngSwitchCase="'array'" [formArrayName]="c.key">
+                 
+                    <hr />
+                    <!-- <h3 class="text-center">
+                      Contact Details
+                    </h3> -->
+                    <div
+                      *ngFor="let group of getFormArray(c.key).controls; let i = index"
+                    >
+                      <!-- {{group |json}} -->
+                      <div [formGroupName]="i">
+                        <div>
+                          <label class="form-label font-size"
+                            ><b>{{ c.key }} {{ i + 1 }}</b></label
+                          >
+                        </div>
+                        <div *ngFor="let child of c.options.children">
+                          <label class="form-label"
+                            ><b>{{ child.options.label }}</b></label
+                          >
+                          <input
+                            class="form-control is-invalid"
+                            [formControlName]="child.key"
+                            [placeholder]="child.options.placeholder"
+                            [pattern]="child.options.pattern"
+                          />
+                        </div>
+                        <!-- *************** -->
+                        <!-- Delete -->
+        
+                        <button
+                          type="button"
+                          class="mt-3 btn btn-danger rounded-circle"
+                          (click)="removeArrayGroup(c.key, i)"
+                        >
+                        <i class="bi bi-telephone-minus"></i>
+                        </button>
+                      </div>
+                      <hr />
+                    </div>
+                    <!-- Add Group -->
+                    <button
+                      type="button"
+                      class="btn btn-success mt-3 btn-lg rounded-circle"
+                      (click)="addArrayGroup(c.key, c.options.children)"
+                    >
+                    <i class="bi bi-telephone-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <br>
+
+              
+              <button
+                type="submit"
+                id="login"
+                [disabled]="myForm.invalid"
+                class="btn btn-block login-btn mb-4"
+                value="Login">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

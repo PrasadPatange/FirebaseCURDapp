@@ -1,0 +1,163 @@
+
+<div class="container mt-5 mb-5 my-container">
+
+   
+    <div class="container">
+            
+            <h3 class="text-center"><b>C U S T O M E R  &nbsp; L I S T  &nbsp;<i class="bi bi-people-fill"></i></b></h3>
+            <br>
+            <table class="table table-dark table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Full Name</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Phone No</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">Delete</th>
+                  <!-- <th scope="col">Modal</th> -->
+      
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of customerArray; let i= index;" >
+                  <th>{{i+1}}</th>
+                  <td>{{item.Address.name}}</td>
+                  <td>{{item.Address.Email}}</td>
+                  <td>{{item.Phone[0].phoneNumber}}</td>
+                  <td>{{item.Phone[0].Age}}</td> 
+                  <td> 
+                    <!-- (click)="edit(item)"   -->
+                    <button type="button" (click)="openModal(template,item)" class="btn btn-secondary btn-sm rounded-circle"><i class="bi bi-pencil-square"></i></button>
+                  </td>
+                
+                  <td> <button  type="button" (click)="delete(item.$key)" class="btn btn-danger btn-sm rounded-circle">
+                    <i class="bi bi-trash"></i></button>
+                  </td>
+                 </tr>
+                            
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-success" (click)="add()"><i class="bi bi-person-plus"></i> Customer</button>
+          </div>
+    </div>
+    <!-- ************************ Modal(Edit Form) *********************** -->
+          <ng-template #template>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Edit User Form &nbsp;<i class="bi bi-pencil-square"></i> </h4>
+              <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+                <div class="container">
+                  <div class="card login-card">
+                    <div class="row no-gutters">
+
+                      <!-- ******************Main Form***************** -->
+                  
+                      <div class="col-md-12">
+                        <div class="card-body">
+                          <h1 class="display-5">
+                            <b>Edit Form</b> &nbsp;<i class="bi bi-pencil-square"></i> 
+                          </h1>
+                          <hr />
+                          <form [formGroup]="myForm" (ngSubmit)="onSubmit(modalRef)" class="was-validated">
+              
+                          
+                            <div class="" *ngFor="let c of advancedForm">
+                              <!-- Switch -->
+                              <div [ngSwitch]="c.type">
+                                <!-- SwitchCase for group -->
+                                <div class="form-group" *ngSwitchCase="'group'" [formGroupName]="c.key" >
+                                  
+                                  <div *ngFor="let child of c.options.children">
+                                    <!-- {{child | json}} -->
+                                    <label class="form-label"><b>{{ child.options.label }}</b></label>
+                                    <input
+                                      class="form-control is-invalid"
+                                      [formControlName]="child.key"
+                                      [placeholder]="child.options.placeholder"
+                                      [pattern]="child.options.pattern"
+                                    />
+                                  </div>
+                                </div>
+                                <!-- SwitchCase for array-->
+                                <div *ngSwitchCase="'array'" [formArrayName]="c.key">
+                               
+                                  <hr />
+                                  <!-- <h3 class="text-center">
+                                    Contact Details
+                                  </h3> -->
+                                  <div
+                                    *ngFor="let group of getFormArray(c.key).controls; let i = index"
+                                  >
+                                    <!-- {{group |json}} -->
+                                    <div [formGroupName]="i">
+                                      <div>
+                                        <label class="form-label font-size"
+                                          ><b>{{ c.key }} {{ i + 1 }}</b></label
+                                        >
+                                      </div>
+                                      <div *ngFor="let child of c.options.children">
+                                        <label class="form-label"
+                                          ><b>{{ child.options.label }}</b></label
+                                        >
+                                        <input
+                                          class="form-control is-invalid"
+                                          [formControlName]="child.key"
+                                          [placeholder]="child.options.placeholder"
+                                          [pattern]="child.options.pattern"
+                                        />
+                                      </div>
+                                      <!-- *************** -->
+                                      <!-- Delete -->
+                      
+                                      <button
+                                        type="button"
+                                        class="mt-3 btn btn-danger rounded-circle"
+                                        (click)="removeArrayGroup(c.key, i)"
+                                      >
+                                      <i class="bi bi-telephone-minus"></i>
+                                      </button>
+                                    </div>
+                                    <hr />
+                                  </div>
+                                  <!-- Add Group -->
+                                  <button
+                                    type="button"
+                                    class="btn btn-success mt-3 btn-lg rounded-circle"
+                                    (click)="addArrayGroup(c.key, c.options.children)"
+                                  >
+                                  <i class="bi bi-telephone-plus"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <br>
+              
+                            
+                            <button
+                              type="submit"
+                              id="login"
+                              [disabled]="myForm.invalid"
+                              class="btn btn-block login-btn mb-4"
+                              value="Login"
+                              >Update</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </main>
+             
+            
+                </div>
+          </ng-template>
+

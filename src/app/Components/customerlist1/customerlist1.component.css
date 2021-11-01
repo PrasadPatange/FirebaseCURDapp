@@ -1,0 +1,20 @@
+/* .bg{
+    background-color:whitesmoke;
+    
+} */
+
+.my-container {
+    height: 700px;
+    width: 700px;
+}
+
+@media (max-width: 400px) {
+    .my-container {
+      height: auto !important;
+      width: "80%" !important;
+    }
+  }
+
+/* .round{
+    border-radius: 10px;
+} */

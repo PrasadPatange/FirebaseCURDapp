@@ -1,0 +1,25 @@
+.font-size {
+    font-size: 20px;
+  }
+  
+  .bg {
+    background-color: whitesmoke;
+    /* background-color:white; */
+  }
+  
+  .form-size {
+    height: 700px;
+    width: 700px;
+  }
+  
+  @media (max-width: 700px) {
+    .form-size {
+      height: auto;
+      width: auto;
+    }
+  }
+  
+  .round {
+    border-radius: 20px;
+  }
+  

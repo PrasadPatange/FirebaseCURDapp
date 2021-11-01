@@ -1,0 +1,74 @@
+
+
+
+
+    <main class="d-flex align-items-center mt-5 mb-5 min-vh-100 py-3 py-md-0">
+      <div class="container ">
+        <div class="card login-card">
+          <div class="row no-gutters">
+            <div class="col-md-5">
+              <img src="https://source.unsplash.com/random" alt="login" class="login-card-img">
+            </div>
+            <div class="col-md-7 ">
+              <div class="card-body">
+               
+              
+                <h1 class="display-4"><b>User Form</b>&nbsp;<i class="bi bi-person-square"></i></h1>
+                <hr>
+                <form [formGroup]="this.customerService.userForm" (ngSubmit)="onSubmit()">
+
+                  <input type="hidden" formControlName="$key">
+                    <div class="form-group">
+                      <label for="name" class="form-label"><b>Full Name</b>&nbsp;<i class="bi bi-person-circle"></i> </label>
+                      <input type="text" id="name" formControlName="name" placeholder="Enter Your Name..."   class="form-control" >
+                      <span class="text-danger" *ngIf="formControls.name.invalid && formControls.name.touched">
+                        <label *ngIf="formControls.name.errors.required"><b>This Field is Required*</b></label>
+                        <label *ngIf="formControls.name.errors.pattern"> <b>Invalid User Name*</b></label>
+                       
+                      </span>
+                    </div>
+
+                    <div class="form-group mb-4">
+                     <label for="exampleInputEmail1" class="form-label"> <b>Email</b>&nbsp;<i class="bi bi-envelope-fill"></i>
+                    
+                    </label>
+            <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email" placeholder="Enter Your Email..." >
+           
+          </div>
+            <span class="text-danger" *ngIf="formControls.email.invalid && formControls.email.touched">
+               <label *ngIf="formControls.email.errors.required"><b>This Field is Required*</b></label>
+               <label *ngIf="formControls.email.errors.pattern"><b>Invalid Email Format*</b></label><br>
+              <label *ngIf="formControls.email.errors.email"><b>Invalid Email*</b></label>
+            </span>
+
+                    <div class="form-group mb-4">
+                      <label for="phone" class="form-label"><b>Phone No.&nbsp;</b></label>&nbsp;<i class="bi bi-telephone-fill"></i>
+                      <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Enter Your Phone No.(10 Digit Only)..."  >
+          </div>
+          
+          <span class="text-danger" *ngIf="formControls.phone.invalid && formControls.phone.touched">
+            <label *ngIf="formControls.phone.errors.required"><b>This Field is Required*</b></label>
+            <label *ngIf="formControls.phone.errors.pattern"><b>Invalid Phone Number*</b></label>
+          </span>
+                    <div class="form-group mb-4">
+                      <label for="age" class="form-label"><b>Age</b></label>&nbsp;<i class="bi bi-person-lines-fill"></i>
+                      <input type="text" class="form-control" id="age" formControlName="age" placeholder="Enter Your Age...">
+
+                      <span class="text-danger" *ngIf="formControls.age.invalid && formControls.age.touched">
+                        <label *ngIf="formControls.age.errors.required"><b>This Field is Required*</b></label>
+                        <label *ngIf="formControls.age.errors.pattern"><b>Invalid Age(must be number between 1 to 100)*</b></label>
+                      </span>
+           
+          </div>
+            
+
+                    <button type="submit" id="login" [disabled]="this.customerService.userForm.invalid"  class="btn btn-block login-btn mb-4"  value="Login">Submit</button>
+                  </form>
+                 
+              </div>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </main>

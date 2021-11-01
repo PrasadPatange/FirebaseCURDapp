@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "angularfirebasecrudapp-e704a": {
+      "hosting": {
+        "firecrudapp": [
+          "angularfirebasecrudapp-e704a"
+        ]
+      }
+    }
+  }
+}
